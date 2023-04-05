@@ -8,18 +8,23 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
+using System.Diagnostics;
+using System.IO;
 
 namespace AllAzAlku2
 {
     public partial class Form1 : Form
     {
-        PictureBox[] taskak;
-        Label[] osszegek;
-        Label[] hatter;
-        Dictionary<string, int> taskaTartalom;
-        int huzasok;
-        string sajatTaska;
+        static PictureBox[] taskak;
+        static Label[] osszegek;
+        static Label[] hatter;
+        static Dictionary<string, int> taskaTartalom;
+        public static int huzasok;
+        static string sajatTaska;
         int kinyitottTaskakbanLevoOsszesPenz;
+        public static string offer;
+        public static int offerPenz;
+        public static int sajatTaskaOsszege;
 
         MySqlConnection Conn;
 
@@ -57,20 +62,71 @@ namespace AllAzAlku2
             }
             if (huzasok == 6)
             {
-                int osszeg = taskaTartalom.Select(x => x.Value).Sum();
-                double ajanlat = Math.Round(((osszeg - kinyitottTaskakbanLevoOsszesPenz) / Math.Sqrt(huzasok-1)),0);
-                MessageBox.Show($"Az ajanlat: {ajanlat} Ft");
+                jatekinfo.Text = "Nezd meg az ajanlatot!";
+                Ajanlo();
+                jatekinfo.Text = "Valassz 3 db taskat!";
             }
-
-            /*if (sender is PictureBox)
+            else if (huzasok >= 7)
             {
-                MessageBox.Show(((PictureBox)sender).Name + Environment.NewLine + taskaTartalom[((PictureBox)sender).Name]);
-            }*/
+                ((PictureBox)sender).Image = global::AllAzAlku2.Properties.Resources.taska_nyitva;
+                ((PictureBox)sender).Click -= GombKattintas;
+                osszegek[Convert.ToInt32(((PictureBox)sender).Name.Substring(5)) - 1].Text = taskaTartalom[((PictureBox)sender).Name].ToString();
+                huzasok++;
+                string kivalasztottTaska = ((PictureBox)sender).Name;
+                int kivalasztottTaskabanLevoPenz = taskaTartalom[kivalasztottTaska];
+                kinyitottTaskakbanLevoOsszesPenz += kivalasztottTaskabanLevoPenz;
+            }
+            if (huzasok == 10)
+            {
+                jatekinfo.Text = "Nezd meg az ajanlatot!";
+                Ajanlo();
+                jatekinfo.Text = "Valassz 3 db taskat!";
+            }
+            if (huzasok == 13)
+            {
+                jatekinfo.Text = "Nezd meg az ajanlatot!";
+                Ajanlo();
+                jatekinfo.Text = "Valassz 3 db taskat!";
+            }
+            if (huzasok == 16)
+            {
+                jatekinfo.Text = "Nezd meg az ajanlatot!";
+                Ajanlo();
+                jatekinfo.Text = "Valassz 2 db taskat!";
+            }
+            if (huzasok == 18)
+            {
+                jatekinfo.Text = "Nezd meg az ajanlatot!";
+                Ajanlo();
+                jatekinfo.Text = "Valassz 2 db taskat!";
+            }
+            if (huzasok == 20)
+            {
+                jatekinfo.Text = "Nezd meg az ajanlatot!";
+                Ajanlo();
+                jatekinfo.Text = "Valassz 2 db taskat!";
+            }
+            if (huzasok == 22)
+            {
+                jatekinfo.Text = "Nezd meg az ajanlatot!";
+                Ajanlo();
+                jatekinfo.Text = "Valassz 2 db taskat!";
+            }
+            if (huzasok == 24)
+            {
+                JatekVegeAjanlatElfogad();
+            }
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
 
+        private void Ajanlo()
+        {
+            int osszeg = taskaTartalom.Select(x => x.Value).Sum();
+            double ajanlat = Math.Round(((osszeg - kinyitottTaskakbanLevoOsszesPenz) / Math.Pow(huzasok - 1, 2)), 0);
+            offer = $"Az ajanlat: {ajanlat} Ft";
+            offerPenz = Convert.ToInt32(ajanlat);
+            AjanlatDialog ajanlatDialog = new AjanlatDialog();
+            ajanlatDialog.ShowDialog();
         }
 
         private void kilépésToolStripMenuItem_Click(object sender, EventArgs e)
@@ -142,6 +198,20 @@ namespace AllAzAlku2
 
             jatekinfo.Text = "Valassz egy taskat...";
             újJátékIndításaToolStripMenuItem.Enabled = false;
+        }
+
+        public static void JatekVegeAjanlatElfogad()
+        {
+            MessageBox.Show($"Nyertel {offerPenz} Ft-ot!");
+            Process.Start(@"C:\Users\admin\Desktop\AllAzAlku2\bin\Debug\AllAzAlku2.exe");
+            Application.Exit();
+        }
+
+        public static void JatekVegeNyitas()
+        {
+            MessageBox.Show($"Nyertel Ft-ot!");
+            Process.Start(@"C:\Users\admin\Desktop\AllAzAlku2\bin\Debug\AllAzAlku2.exe");
+            Application.Exit();
         }
     }
 }
