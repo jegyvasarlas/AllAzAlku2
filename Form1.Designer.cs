@@ -56,6 +56,7 @@
             this.újJátékIndításaToolStripMenuItem.Name = "újJátékIndításaToolStripMenuItem";
             this.újJátékIndításaToolStripMenuItem.Size = new System.Drawing.Size(132, 28);
             this.újJátékIndításaToolStripMenuItem.Text = "Új játék indítása";
+            this.újJátékIndításaToolStripMenuItem.Click += new System.EventHandler(this.újJátékIndításaToolStripMenuItem_Click);
             // 
             // rangsorMegtekintéseToolStripMenuItem
             // 
@@ -68,6 +69,7 @@
             this.kilépésToolStripMenuItem.Name = "kilépésToolStripMenuItem";
             this.kilépésToolStripMenuItem.Size = new System.Drawing.Size(71, 28);
             this.kilépésToolStripMenuItem.Text = "Kilépés";
+            this.kilépésToolStripMenuItem.Click += new System.EventHandler(this.kilépésToolStripMenuItem_Click);
             // 
             // panel1
             // 
@@ -87,6 +89,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "All az alku";
             this.Load += new System.EventHandler(this.Form1_Load);
