@@ -16,6 +16,8 @@ namespace AllAzAlku2
         PictureBox[] taskak;
         Label[] osszegek;
         Dictionary<string, int> taskaTartalom;
+        int huzasok;
+        string sajatTaska;
 
         MySqlConnection Conn;
 
@@ -24,14 +26,21 @@ namespace AllAzAlku2
             InitializeComponent();
             Conn = Connect.InitDB();
             taskaTartalom = new Dictionary<string, int>();
+            huzasok = 0;
         }
         
         private void GombKattintas(object sender, EventArgs e)
         {
-            if (sender is PictureBox)
+            if (huzasok == 0)
+            {
+                sajatTaska = ((PictureBox)sender).Name;
+                ((PictureBox)sender).Click -= GombKattintas;
+                ((PictureBox)sender).BorderStyle = BorderStyle.Fixed3D;
+            }
+            /*if (sender is PictureBox)
             {
                 MessageBox.Show(((PictureBox)sender).Name + Environment.NewLine + taskaTartalom[((PictureBox)sender).Name]);
-            }
+            }*/
         }
 
         private void Form1_Load(object sender, EventArgs e)
