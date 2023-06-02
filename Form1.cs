@@ -23,8 +23,8 @@ namespace AllAzAlku2
         static string sajatTaska;
         int kinyitottTaskakbanLevoOsszesPenz;
         public static string offer;
-        public static int offerPenz;
         public static int sajatTaskaOsszege;
+        public static int offerPenz;
 
         MySqlConnection Conn;
 
@@ -114,7 +114,7 @@ namespace AllAzAlku2
             }
             if (huzasok == 24)
             {
-                JatekVegeAjanlatElfogad();
+                JatekVegeNyitas();
             }
         }
 
@@ -209,9 +209,18 @@ namespace AllAzAlku2
 
         public static void JatekVegeNyitas()
         {
-            MessageBox.Show($"Nyertel Ft-ot!");
+            sajatTaskaOsszege = taskaTartalom.Where(x => x.Key == sajatTaska).Select(x => x.Value).First();
+            
+            MessageBox.Show($"Nyertel {sajatTaskaOsszege} Ft-ot!");
             Process.Start(@"C:\Users\admin\Desktop\AllAzAlku2\bin\Debug\AllAzAlku2.exe");
             Application.Exit();
         }
+
+        private void rangsorMegtekintéseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Ranglista ranglista = new Ranglista();
+            ranglista.ShowDialog();
+        }     
+        
     }
 }

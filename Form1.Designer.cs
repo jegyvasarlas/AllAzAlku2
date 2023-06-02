@@ -65,6 +65,7 @@
             this.rangsorMegtekintéseToolStripMenuItem.Name = "rangsorMegtekintéseToolStripMenuItem";
             this.rangsorMegtekintéseToolStripMenuItem.Size = new System.Drawing.Size(177, 28);
             this.rangsorMegtekintéseToolStripMenuItem.Text = "Rangsor megtekintése";
+            this.rangsorMegtekintéseToolStripMenuItem.Click += new System.EventHandler(this.rangsorMegtekintéseToolStripMenuItem_Click);
             // 
             // kilépésToolStripMenuItem
             // 
